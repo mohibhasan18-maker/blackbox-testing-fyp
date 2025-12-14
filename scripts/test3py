@@ -1,0 +1,16 @@
+import requests
+
+API_URL = "http://127.0.0.1:8000/predict"
+LARGE_IMAGE_PATH = "test_images/large_image.jpg"  # >5MB image
+
+with open(LARGE_IMAGE_PATH, "rb") as f:
+    files = {"file": f}
+    response = requests.post(API_URL, files=files)
+
+print("Use Case 3: Large Image Upload")
+print("Status Code:", response.status_code)
+if response.status_code == 200:
+    data = response.json()
+    print("Predicted Class:", data["class"])
+    print("Confidence:", data["confidence"])
+print("-" * 50)
